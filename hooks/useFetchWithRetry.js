@@ -10,10 +10,10 @@ export const useFetchWithReTry = ({ url, maxRetry = 3 }) => {
   useEffect(() => {
     async function fetchData() {
       let tryTime = maxRetry;
+      setLoading(true);
 
       while (tryTime > 0) {
         try {
-          setLoading(true);
           const res = await axios.get(url, {
             headers: {
               'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export const useFetchWithReTry = ({ url, maxRetry = 3 }) => {
         }
       }
 
-      if (tryTime === 0) setError(ERROR_TEXT);
+      setError(ERROR_TEXT);
       setLoading(false);
     }
 
